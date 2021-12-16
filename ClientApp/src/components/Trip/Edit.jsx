@@ -1,47 +1,27 @@
 import React, {Component} from "react";
-import axios from "axios";
 
-export class Create extends Component {
+export class EditTrip extends Component {
     constructor(props) {
-        
         super(props);
+
         this.state = {
             name: '',
             description: '',
-            dateStart: '',
-            dateCompleted: ''
+            dateStart: null,
+            dateCompleted: null
         }
-        this.onChangeName = this.onChangeName.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-    }
-    onSubmit = (event) => {
-        event.preventDefault();
-
-        const {history} = this.props;
-        const tripObject = {
-            Id: Math.floor(Math.random()*1000),
-            name: this.state.name,
-            description: this.state.description,
-            dateStart: this.state.dateStart,
-            dateCompleted: this.state.dateCompleted
-        };  
-
-        axios.post('api/Trips/AddTrip', tripObject)
-            .then(response => {
-                // history.push('/trips');
-            })
-        ;
-
-        
-
     }
 
-    onChangeName(e) {
+    onSubmit = (e) => {
+        e.preventDefault();
+    }
+
+    onChangeName = (e) => {
         this.setState({
             name: e.target.value
         });
     }
-    
+
     onChangeDescription = (e) => {
         this.setState({
             description: e.target.value
@@ -63,8 +43,7 @@ export class Create extends Component {
     render() {
         return (
             <div className="container">
-                <div className="trip-form" >
-                    <h3>Add new trip</h3>
+                <h3>Add new trip</h3>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Trip name:  </label>
@@ -112,7 +91,6 @@ export class Create extends Component {
                             <input type="submit" value="Add trip" className="btn btn-primary"/>
                         </div>
                     </form>
-                </div>
             </div>
         );
     }
